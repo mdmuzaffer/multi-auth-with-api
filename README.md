@@ -101,9 +101,6 @@ Step 4. Generate JWT Key
 
 Step 6. Create jwt middleware
 
-<?php
-
-namespace App\Http\Middleware;
 
 use Closure;
 use JWTAuth;
