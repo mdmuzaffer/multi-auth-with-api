@@ -26,9 +26,8 @@ Here role table
 
 2. Also I have created migrattion and seeder
    command php artisan make:seeder UserTableSeeder
-<?php
 
-namespace Database\Seeders;
+####===================================================
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -54,6 +53,23 @@ class UserTableSeeder extends Seeder
 
     }
 }
+####=======================
+
+3. Also I have crated seprated middleware for admin , doctor, intern and patient
+   ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/0218c051-c703-4a19-8522-63a4222ff5ea)
+
+   Also I have assigned in the karnel.php file the middleware
+   ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/756d84d4-1ad3-4102-8ed1-359eb4d2ad3e)
+
+   4. Also I have created prefix in route and make route .
+   5. I have make controller and function login, register, login for all role type user is comman.
+      ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/17ca9671-dbc9-46be-9ee1-eb523f691d4a)
+
+
+   6. Also I have make master layout in resource view assigned all type user's dashboard
+   7. 
+ 
+
 
 
 
