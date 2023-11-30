@@ -12,14 +12,51 @@
 2. redirect own dashboard
    ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/9d3dc16e-624e-4f3f-9669-c3103abbe0c0)
 
+3. Other role type user login
+
 ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/e8013091-ddfe-4af1-b52a-7b5a77490221)
 
 ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/d5cb1da7-e80e-402f-9440-a88bdb093041)
 
+### Now code details
+
+1. I have created four type role for Admin, Doctor, Intern , Patient.
+Here role table 
+![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/57e4aec3-e740-4db5-94e1-2c2bc5bc70ae)
+
+2. Also I have created migrattion and seeder
+   command php artisan make:seeder UserTableSeeder
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\User;
+class UserTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        
+        $users = [
+            ['name' => 'Admin', 'email'=>'admin@gmail.com', 'role'=>'1', 'password' => bcrypt('123456'), 'status' =>'1'],
+            ['name' => 'Doctor', 'email'=>'doctor@gmail.com', 'role'=>'2', 'password' => bcrypt('123456'), 'status' =>'1'],
+            ['name' => 'Intern', 'email'=>'intern@gmail.com', 'role'=>'3', 'password' => bcrypt('123456'), 'status' =>'1'],
+            ['name' => 'Patient', 'email'=>'patient@gmail.com', 'role'=>'4', 'password' => bcrypt('123456'), 'status' =>'1'],
+        ];
+
+         foreach ($users as $key => $value) {
+            User::create($value);
+        }
+
+    }
+}
 
 
 
-   
 
 
 
