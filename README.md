@@ -167,7 +167,8 @@ Also Logout with token
 ![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/737c829d-b7de-457c-bf0a-a5e3dc31733f)
 
 
-
+### Here API with jwt token example  - https://www.avyatech.com/rest-api-with-laravel-8-using-jwt-token/
+### here Also project some example for multiple users login and redirect their own dashboard - https://youtube.com/watch?v=sYqbaOL6b0A&si=Z5m5x80wFF18yBnE
 
 
 
