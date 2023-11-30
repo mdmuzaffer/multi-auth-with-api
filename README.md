@@ -67,8 +67,109 @@ class UserTableSeeder extends Seeder
 
 
    6. Also I have make master layout in resource view assigned all type user's dashboard
-   7. 
+
+   ### Also I have setup API with JWT toke
+
+   Step 1. Install JWT Package
+
+   composer require tymon/jwt-auth
+
+    Step 2.  Add jwt package into a service provider
+
+   Open config/app.php file and update the providers and aliases array.
+
+'providers' => [
+
+'Tymon\JWTAuth\Providers\LaravelServiceProvider',
+],
+'aliases' => [
+
+    'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+     'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+],
+Now , you have successfully added the JWT package into the service provider. Next, we will publish the package config. File.
  
+
+Step 3. Publish jwt configuration
+
+
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+Then you will see a new file in config/jwt.php
+In the next step, you need to run a php artisan jwt:secret from the console to generate a secret auth secret.
+
+Step 4. Generate JWT Key
+
+Step 6. Create jwt middleware
+
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use JWTAuth;
+use Exception;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+
+class JwtMiddleware extends BaseMiddleware
+{
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (Exception $e) {
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
+                return response()->json(['status' => 'Token is Invalid']);
+            }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
+                return response()->json(['status' => 'Token is Expired']);
+            }else{
+                return response()->json(['status' => 'Authorization Token not found']);
+            }
+        }
+        return $next($request);
+    }
+}
+To use this middleware register this into Kernel. Open app\Http\Kernel.php
+
+
+protected $routeMiddleware = [
+        'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
+        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
+    ];
+
+    
+
+![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/fff35d69-fa01-4f2a-bafa-41126ebaab49)
+
+Step 7.  Create API Routes
+
+![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/28652d0a-ccfb-4157-85b8-8e56cf6416d0)
+
+Step 8. Create api controller
+
+php artisan make:controller ApiController
+
+#### Check the code from Apicontroller 
+Here login and getting token 
+![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/6df3cc0c-ff33-43b8-a301-185eae33c8bb)
+
+Here getting user with jwt token
+
+![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/33e84227-6162-4c53-9758-ae957326a714)
+
+Also Logout with token 
+
+![image](https://github.com/mdmuzaffer/multi-auth-with-api/assets/58267203/737c829d-b7de-457c-bf0a-a5e3dc31733f)
+
+
 
 
 
